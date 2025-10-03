@@ -1,0 +1,13 @@
+{
+    "files.exclude": {
+        "**/.git": true,
+        "**/.svn": true,
+        "**/.DS_Store": true,
+        "**/node_modules":true,
+        "**/.idea":true
+    },
+    "files.associations": {
+        ".env.example": "dotenv",
+        "Dockerfile-*": "dockerfile"
+    }
+}

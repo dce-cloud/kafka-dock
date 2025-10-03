@@ -1,0 +1,41 @@
+services:
+
+### Kafka ################################################
+  kafka:
+    build:
+      context: ${KAFKA_HOST_PATH}
+      args:
+        DOCKER_REGISTRY_URL: ${DOCKER_REGISTRY_URL}
+        KAFKA_VERSION: ${KAFKA_VERSION}
+    container_name: ${KAFKA_CONTAINER_NAME}
+    hostname: ${KAFKA_HOSTNAME}
+    restart: ${DOCKER_RESTART_POLICY}
+    ulimits:
+      nofile:
+        soft: 65536
+        hard: 65536
+    environment:
+      TZ: ${TZ}
+      KAFKA_NODE_ID: ${KAFKA_NODE_ID}
+      KAFKA_PROCESS_ROLES: "controller,broker"
+      KAFKA_LISTENERS: "PLAINTEXT://:9092,CONTROLLER://:9093,EXTERNAL://:9094"
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: "CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT,EXTERNAL:PLAINTEXT"
+      KAFKA_CONTROLLER_QUORUM_VOTERS: "${KAFKA_NODE_ID}@${KAFKA_CONTAINER_NAME}:9093"
+      KAFKA_CONTROLLER_LISTENER_NAMES: "CONTROLLER"
+      KAFKA_ADVERTISED_LISTENERS: "PLAINTEXT://${KAFKA_CONTAINER_NAME}:9092,EXTERNAL://${KAFKA_CONTAINER_NAME}:9094"
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
+      KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
+      KAFKA_NUM_PARTITIONS: 3
+    ports:
+      - ${KAFKA_HOST_PORT}:9092
+    networks:
+      backend:
+        ipv4_address: ${KAFKA_BACKEND_IP}
+    healthcheck:
+      test: ['CMD', "sh", "-c", "/opt/kafka/bin/kafka-topics.sh --bootstrap-server localhost:9092 --list > /dev/null 2>&1 || exit 1"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+      start_period: 10s

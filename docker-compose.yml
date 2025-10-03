@@ -1,0 +1,3 @@
+include:
+  - ./docker-compose-network.yml
+  - ./kafka/docker-compose-kafka.yml

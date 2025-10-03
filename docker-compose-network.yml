@@ -1,0 +1,4 @@
+networks:
+  backend:
+    external: true
+    name: ${DOCKER_BACKEND_NETWORK_NAME}

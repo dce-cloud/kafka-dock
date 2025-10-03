@@ -1,0 +1,21 @@
+services:
+### KAFBAT UI ##############################################
+  kafbat-ui:
+    build:
+      context: ${KAFBAT_UI_HOST_PATH}
+      args:
+        - KAFBAT_UI_VERSION=${KAFBAT_UI_VERSION}
+    container_name: ${KAFBAT_UI_CONTAINER_NAME}
+    hostname: ${KAFBAT_UI_HOSTNAME}
+    ports:
+      - "${KAFBAT_UI_HOST_HTTP_PORT}:8080"
+    environment:
+      TZ: ${TZ}
+      DYNAMIC_CONFIG_ENABLED: true
+    volumes:
+      - ~/kui/config.yml:/etc/kafkaui/dynamic_config.yaml
+    networks:
+      backend:
+        ipv4_address: ${KAFBAT_UI_BACKEND_IP}
+    depends_on:
+      - "${KAFKA_CONTAINER_NAME}"
