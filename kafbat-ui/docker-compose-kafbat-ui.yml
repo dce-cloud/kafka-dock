@@ -1,3 +1,7 @@
+volumes:
+  kafbat-ui-conf:
+    driver: ${VOLUMES_DRIVER}
+
 services:
 ### KAFBAT UI ##############################################
   kafbat-ui:
@@ -13,7 +17,7 @@ services:
       TZ: ${TZ}
       DYNAMIC_CONFIG_ENABLED: true
     volumes:
-      - ~/kui/config.yml:/etc/kafkaui/dynamic_config.yaml
+      - kafbat-ui-conf:/etc/kafkaui/dynamic_config.yaml
     networks:
       backend:
         ipv4_address: ${KAFBAT_UI_BACKEND_IP}
