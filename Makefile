@@ -20,3 +20,7 @@ echo_init_network:
 .PHONY: enter_kafka
 enter_kafka:
 	@${DC_ENTER} ${KAFKA_CONTAINER_NAME} bash
+
+.PHONY: enter_kafbat_ui
+enter_kafbat_ui:
+	@${DC_ENTER} ${KAFBAT_UI_CONTAINER_NAME} bash
