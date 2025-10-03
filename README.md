@@ -1,6 +1,7 @@
 # kafka-dock
 - [kafka 官网](https://kafka.apache.org/)
 - [kafbat-ui 官网](https://ui.docs.kafbat.io/)
+- [kafka docker Hub](https://hub.docker.com/r/apache/kafka-native)
 
 基于 Docker Compose 搭建的kafka服务环境
 
