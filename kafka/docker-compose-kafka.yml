@@ -34,7 +34,7 @@ services:
       backend:
         ipv4_address: ${KAFKA_BACKEND_IP}
     healthcheck:
-      test: ['CMD', "sh", "-c", "/opt/kafka/bin/kafka-topics.sh --bootstrap-server localhost:9092 --list > /dev/null 2>&1 || exit 1"]
+      test: ["CMD", "sh", "-c", "pgrep -f 'kafka.Kafka' > /dev/null || exit 1"]
       interval: 15s
       timeout: 5s
       retries: 5
