@@ -7,6 +7,8 @@ LABEL maintainer="zz <373045134@qq.com>"
 
 ENV TZ=Asia/Shanghai
 
+USER root
+
 RUN sed -i 's#https\?://dl-cdn.alpinelinux.org/alpine#https://mirrors4.tuna.tsinghua.edu.cn/alpine#g' /etc/apk/repositories && \
     apk update && \
     apk add --no-cache tzdata && \
@@ -14,4 +16,5 @@ RUN sed -i 's#https\?://dl-cdn.alpinelinux.org/alpine#https://mirrors4.tuna.tsin
     echo $TZ > /etc/timezone && \
     apk add --no-cache curl busybox-extras vim && \
     rm -rf /var/cache/apk/*
-    
+
+USER kafkaui
