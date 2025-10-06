@@ -18,5 +18,11 @@ services:
     networks:
       backend:
         ipv4_address: ${KAFBAT_UI_BACKEND_IP}
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
     depends_on:
       - "${KAFKA_CONTAINER_NAME}"
