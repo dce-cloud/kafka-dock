@@ -1,6 +1,8 @@
 include .env
 include .cmd.env
 
+KAFKA_CONTAINER_BIN_PATH=/opt/kafka/bin
+
 .PHONY: help test
 help:
 	@echo "usage: make <option>"
@@ -24,3 +26,7 @@ enter_kafka:
 .PHONY: enter_kafbat_ui
 enter_kafbat_ui:
 	@${DC_ENTER} ${KAFBAT_UI_CONTAINER_NAME} sh
+
+.PHONY: create_topic
+create_topic:
+	@echo ${DC_ENTER} ${KAFKA_CONTAINER_NAME} ${KAFKA_CONTAINER_BIN_PATH}/kafka-topics --create --topic topic1 --partitions 3 --replication-factor 1 --if-not-exists
