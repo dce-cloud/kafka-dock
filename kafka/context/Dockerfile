@@ -16,7 +16,8 @@ RUN sed -i 's#https\?://dl-cdn.alpinelinux.org/alpine#https://mirrors4.tuna.tsin
     apk add --no-cache curl busybox-extras vim && \
     rm -rf /var/cache/apk/*
 
-COPY --link --chown=appuser:appuser kafka-bin/ /opt/kafka/bin/
+COPY --link --chown=appuser:appuser kafka_2.13-4.1.0/bin /opt/kafka/bin
+COPY --link --chown=appuser:appuser kafka_2.13-4.1.0/libs /opt/kafka/libs
 
 RUN chmod +x /opt/kafka/bin/*.sh
 

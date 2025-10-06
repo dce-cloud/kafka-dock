@@ -29,4 +29,4 @@ enter_kafbat_ui:
 
 .PHONY: create_topic
 create_topic:
-	@echo ${DC_ENTER} ${KAFKA_CONTAINER_NAME} ${KAFKA_CONTAINER_BIN_PATH}/kafka-topics --create --topic topic1 --partitions 3 --replication-factor 1 --if-not-exists
+	@echo ${DC_ENTER} ${KAFKA_CONTAINER_NAME} ${KAFKA_CONTAINER_BIN_PATH}/kafka-topics.sh --create --topic topic1 --partitions 3 --replication-factor 1 --if-not-exists
