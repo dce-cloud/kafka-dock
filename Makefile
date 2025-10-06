@@ -2,6 +2,7 @@ include .env
 include .cmd.env
 
 KAFKA_CONTAINER_BIN_PATH=/opt/kafka/bin
+KAFKA_BOOTSTRAP_SERVERS="--bootstrap-server localhost:9092"
 
 .PHONY: help test
 help:
@@ -27,6 +28,12 @@ enter_kafka:
 enter_kafbat_ui:
 	@${DC_ENTER} ${KAFBAT_UI_CONTAINER_NAME} sh
 
-.PHONY: create_topic
+.PHONY: create_topic list_topic describe_topic producer
 create_topic:
-	@echo ${DC_ENTER} ${KAFKA_CONTAINER_NAME} ${KAFKA_CONTAINER_BIN_PATH}/kafka-topics.sh --create --topic topic1 --partitions 3 --replication-factor 1 --if-not-exists
+	@echo ${DC_ENTER} ${KAFKA_CONTAINER_NAME} ${KAFKA_CONTAINER_BIN_PATH}/kafka-topics.sh ${KAFKA_BOOTSTRAP_SERVERS} --create --topic topic1 --partitions 3 --replication-factor 1 --if-not-exists
+list_topic:
+	@echo ${DC_ENTER} ${KAFKA_CONTAINER_NAME} ${KAFKA_CONTAINER_BIN_PATH}/kafka-topics.sh ${KAFKA_BOOTSTRAP_SERVERS} --list
+describe_topic:
+	@echo ${DC_ENTER} ${KAFKA_CONTAINER_NAME} ${KAFKA_CONTAINER_BIN_PATH}/kafka-topics.sh ${KAFKA_BOOTSTRAP_SERVERS} --describe --topic topic1
+producer:
+	@echo echo \"宿主机发送的消息\" \| docker compose exec -i -T ${KAFKA_CONTAINER_NAME} ${KAFKA_CONTAINER_BIN_PATH}/kafka-console-producer.sh ${KAFKA_BOOTSTRAP_SERVERS} --topic topic1
