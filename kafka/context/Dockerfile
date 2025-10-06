@@ -6,6 +6,18 @@ LABEL maintainer="zaizai <373045134@qq.com>"
 
 ENV TZ=Asia/Shanghai
 
-COPY --link kafka-bin /opt/kafka/bin
+USER root
+
+RUN sed -i 's#https\?://dl-cdn.alpinelinux.org/alpine#https://mirrors4.tuna.tsinghua.edu.cn/alpine#g' /etc/apk/repositories && \
+    apk update && \
+    apk add --no-cache tzdata && \
+    ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && \
+    echo $TZ > /etc/timezone && \
+    apk add --no-cache curl busybox-extras vim && \
+    rm -rf /var/cache/apk/*
+
+COPY --link --chown=appuser:appuser kafka-bin/ /opt/kafka/bin/
 
 RUN chmod +x /opt/kafka/bin/*.sh
+
+USER appuser
