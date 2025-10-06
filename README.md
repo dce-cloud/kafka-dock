@@ -13,7 +13,7 @@
 
 | status | service | backend ip | version | 备注 |
 |---|---|---|---|---|
-| &check; | kafka | 172.25.40.3 | 4.1.0 | |
+| &check; | kafka | 172.25.40.3 | 4.1.0 | native不方便调试 |
 | &check; | kafbat-ui | 172.25.40.4 | latest | |
 
 # 使用到的镜像
@@ -21,6 +21,7 @@
 ```json
 [
     "apache/kafka-native:4.1.0",
+    "apache/kafka:4.1.0",
     "ghcr.io/kafbat/kafka-ui:latest",
 ]
 ```
